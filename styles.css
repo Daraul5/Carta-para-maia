@@ -265,7 +265,7 @@ body, html {
     animation: pulse 2s infinite; pointer-events: none; transition: opacity 0.5s;
     background: rgba(0,0,0,0.4); padding: 6px 16px; border-radius: 20px; white-space: nowrap;
 }
-.envelope-wrapper.is-open ~ .click-hint { opacity: 0; }
+.envelope-wrapper.is-open .click-hint { opacity: 0; }
 
 @media (max-width: 700px) {
     .moon { width: 80px; height: 80px; top: 10%; right: 10%; }
