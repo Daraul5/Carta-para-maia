@@ -1,0 +1,272 @@
+:root {
+    --env-w: 600px;
+    --env-h: 400px; 
+    
+    --wax-color: #720b29;
+    --wax-light: #a3143f;
+    --wax-dark: #400415;
+    
+    --paper-color: #fdfaf6;
+    --text-color: #2c2420;
+    --ink-color: #2c2420; 
+}
+
+@media (max-width: 700px) {
+    :root {
+        --env-w: 90vw;
+        --env-h: 60vw;
+    }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, html {
+    height: 100%; width: 100%; overflow: hidden;
+    font-family: 'Lora', serif; background-color: #020111; 
+}
+
+/* =========================================
+   FONDO NOCHE ESTRELLADA
+   ========================================= */
+.starry-background {
+    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(to bottom, #050514 0%, #170d36 100%);
+    z-index: 1; overflow: hidden;
+}
+
+.moon {
+    position: absolute; top: 12%; right: 15%; width: 110px; height: 110px;
+    background: radial-gradient(circle at 30% 30%, #fffdee, #f6f1d5 60%, #e0d8b0);
+    border-radius: 50%;
+    box-shadow: 0 0 60px #f6f1d5, 0 0 150px rgba(255,255,255,0.2), inset -10px -10px 20px rgba(0,0,0,0.15);
+}
+
+.stars {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 90px 40px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 200px 10px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 250px 180px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 300px 100px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat; background-size: 350px 350px;
+}
+
+.twinkling {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        radial-gradient(1.5px 1.5px at 10px 10px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 150px 150px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 80px 200px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+    background-repeat: repeat; background-size: 250px 250px;
+    animation: twinkle 4s infinite alternate;
+}
+
+@keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+
+.shooting-star {
+    position: absolute; top: 20%; left: -10%; width: 150px; height: 1px;
+    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+    transform: rotate(-30deg); animation: shooting 12s infinite linear; opacity: 0;
+}
+
+@keyframes shooting {
+    0% { transform: translateX(0) translateY(0) rotate(-30deg); opacity: 1; }
+    8% { transform: translateX(120vw) translateY(60vh) rotate(-30deg); opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* =========================================
+   ESTRUCTURA DEL SOBRE CLÁSICO EN V
+   ========================================= */
+.scene {
+    position: relative; width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 10; perspective: 1500px;
+}
+
+.envelope-wrapper {
+    position: relative; width: var(--env-w); height: var(--env-h);
+}
+
+.envelope {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d;
+}
+
+/* Textura compartida que hace que TODO luzca como papel real */
+.envelope-back, .envelope-left, .envelope-right, .envelope-bottom, .envelope-flap, .letter {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    transition: opacity 0.5s ease 0s;
+}
+
+/* 1. Fondo del sobre */
+.envelope-back {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #d1bfae; border-radius: 4px; z-index: 1;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* 3. Lados y frente del sobre (clip-path para cortes de papel realistas) */
+.envelope-left {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #e3d2c2; z-index: 3;
+    clip-path: polygon(0 0, 50% 50%, 0 100%);
+    filter: drop-shadow(2px 0px 5px rgba(0,0,0,0.08));
+}
+
+.envelope-right {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #e3d2c2; z-index: 3;
+    clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+    filter: drop-shadow(-2px 0px 5px rgba(0,0,0,0.08));
+}
+
+.envelope-bottom {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #eadbc9; z-index: 4;
+    clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+    filter: drop-shadow(0 -4px 10px rgba(0,0,0,0.15));
+}
+
+/* 4. Solapa en V clásica (baja hasta 55% para una V elegante) */
+.envelope-flap {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #eadbc9; z-index: 5;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top;
+    transition: transform 1s ease-in-out, opacity 0.5s ease 0s;
+    /* La sombra remarca maravillosamente el corte de la solapa V sobre el papel */
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3));
+}
+
+/* 5. Sello de Cera (ubicado en la punta de la V, top 55%) */
+.wax-seal {
+    position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
+    width: clamp(50px, 12vw, 75px); height: clamp(50px, 12vw, 75px);
+    background: radial-gradient(circle at 35% 35%, var(--wax-light), var(--wax-color) 45%, var(--wax-dark));
+    border-radius: 50%; z-index: 6; cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(0,0,0,0.3), inset 0 3px 6px rgba(255,255,255,0.2);
+    display: flex; justify-content: center; align-items: center;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s, opacity 0.4s ease 0.5s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.wax-seal::after {
+    content: ''; position: absolute; width: 85%; height: 85%; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2); box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.wax-seal span {
+    font-family: 'Dancing Script', cursive; color: #f4d03f;
+    font-size: clamp(28px, 6vw, 36px); font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); z-index: 2; margin-top: -3px;
+}
+
+.wax-seal:hover, .wax-seal:active {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(0,0,0,0.4), inset 0 3px 6px rgba(255,255,255,0.3);
+}
+
+/* DESAPARICIÓN DEL SOBRE AL ABRIR */
+.envelope-wrapper.is-open .envelope-back,
+.envelope-wrapper.is-open .envelope-left,
+.envelope-wrapper.is-open .envelope-right,
+.envelope-wrapper.is-open .envelope-bottom,
+.envelope-wrapper.is-open .envelope-flap {
+    opacity: 0; pointer-events: none;
+    transition: opacity 1s ease 1s, transform 1s ease-in-out; 
+}
+
+.envelope-wrapper.is-open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope-wrapper.is-open .wax-seal {
+    opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(1.5);
+    transition: transform 0.4s ease 0s, opacity 0.4s ease 0s;
+}
+
+/* =========================================
+   LA CARTA (PAPEL CON TEXTURA, Z-INDEX 2)
+   ========================================= */
+.letter {
+    position: absolute;
+    /* La carta está inicialmente dentro del sobre (z-index 2) */
+    left: 50%; bottom: 4%; transform: translateX(-50%) translateY(0);
+    width: 94%; height: 92%;
+    background-color: var(--paper-color);
+    box-shadow: 0 0 10px rgba(0,0,0,0.15); 
+    z-index: 2; 
+    transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0s, height 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0s, width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0s, z-index 0s linear 0s, bottom 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0s;
+    border-radius: 4px;
+    padding: clamp(25px, 6vw, 55px) clamp(20px, 5vw, 45px);
+    display: flex; flex-direction: column;
+}
+
+.envelope-wrapper.is-open .letter {
+    bottom: 50%; transform: translateX(-50%) translateY(50%);
+    height: 80vh; width: clamp(320px, 92vw, 650px);
+    z-index: 10; box-shadow: 0 25px 70px rgba(0,0,0,0.7);
+    transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s, height 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s, width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s, z-index 0s linear 0.8s, bottom 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s;
+}
+
+.close-btn {
+    position: absolute; top: 20px; right: 20px;
+    background: transparent; border: none; font-size: 28px; color: var(--ink-color);
+    cursor: pointer; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease 0s; z-index: 20; -webkit-tap-highlight-color: transparent;
+}
+.close-btn:hover { color: var(--wax-color); transform: scale(1.1); }
+.envelope-wrapper.is-open .close-btn {
+    opacity: 1; pointer-events: auto; transition: opacity 0.5s ease 2.3s, transform 0.2s; 
+}
+
+.letter-content {
+    opacity: 0; transition: opacity 0.3s ease 0s;
+    height: 100%; display: flex; flex-direction: column; overflow-y: auto; z-index: 10;
+}
+.letter-content::-webkit-scrollbar { width: 5px; }
+.letter-content::-webkit-scrollbar-track { background: transparent; }
+.letter-content::-webkit-scrollbar-thumb { background: rgba(44, 36, 32, 0.2); border-radius: 4px; }
+
+.envelope-wrapper.is-open .letter-content {
+    opacity: 1; transition: opacity 0.8s ease 2.2s; 
+}
+
+.salutation {
+    font-family: 'Dancing Script', cursive; font-size: clamp(28px, 7vw, 44px);
+    color: var(--wax-color); margin-bottom: clamp(15px, 4vw, 30px); text-align: left;
+}
+
+.message {
+    font-size: clamp(16px, 4vw, 21px); line-height: 1.8;
+    color: var(--text-color); flex-grow: 1; font-weight: 400;
+}
+
+.typing-char { opacity: 0; transition: opacity 0.1s ease; }
+.typing-char.visible { opacity: 1; }
+
+.signature {
+    font-family: 'Dancing Script', cursive; font-size: clamp(26px, 6vw, 38px);
+    color: var(--ink-color); margin-top: clamp(20px, 5vw, 40px); text-align: right;
+    opacity: 0; transition: opacity 1.5s ease;
+}
+.signature.visible { opacity: 1; }
+
+.click-hint {
+    position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
+    color: #fff; font-family: 'Lora', serif; font-size: clamp(14px, 3.5vw, 16px);
+    letter-spacing: 1px; text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    animation: pulse 2s infinite; pointer-events: none; transition: opacity 0.5s;
+    background: rgba(0,0,0,0.4); padding: 6px 16px; border-radius: 20px; white-space: nowrap;
+}
+.envelope-wrapper.is-open ~ .click-hint { opacity: 0; }
+
+@media (max-width: 700px) {
+    .moon { width: 80px; height: 80px; top: 10%; right: 10%; }
+}

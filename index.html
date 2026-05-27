@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Maia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="starry-background">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="shooting-star"></div>
+        <div class="moon"></div>
+    </div>
+    
+    <div class="scene">
+        <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope" id="envelope">
+                
+                <!-- Fondo del sobre (z-index: 1) -->
+                <div class="envelope-back"></div>
+                
+                <!-- La Carta (z-index: 2) -> Intercalada perfectamente -->
+                <div class="letter" id="letter">
+                    <button class="close-btn" id="closeBtn" aria-label="Cerrar carta">&times;</button>
+                    <div class="letter-content">
+                        <h1 class="salutation">Maia amada mía,</h1>
+                        <div class="message" id="messageText"></div>
+                        <p class="signature fade-in-hidden" id="signature">Con todo mi amor, de parte de Raúl.</p>
+                    </div>
+                </div>
+
+                <!-- Lados y frente del sobre (z-index: 3, 4) -->
+                <div class="envelope-left"></div>
+                <div class="envelope-right"></div>
+                <div class="envelope-bottom"></div>
+                
+                <!-- Solapa en V clásica (z-index: 5) -->
+                <div class="envelope-flap" id="flap"></div>
+                
+                <!-- Sello de Cera (z-index: 6) -->
+                <div class="wax-seal" id="waxSeal" aria-label="Abrir carta">
+                    <span>M</span>
+                </div>
+
+            </div>
+            <div class="click-hint" id="clickHint">Toca el sello para abrir</div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
