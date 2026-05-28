@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     if (isOpened) {
                         signature.classList.add('visible');
-                        downloadBtns.classList.add('visible');
+                        downloadBtns.style.opacity = '1';
+                        downloadBtns.style.pointerEvents = 'auto';
                     }
                 }, 800);
             }
@@ -82,7 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
             envelopeWrapper.classList.remove('is-open');
             
             signature.classList.remove('visible');
-            downloadBtns.classList.remove('visible');
+            downloadBtns.style.opacity = '0';
+            downloadBtns.style.pointerEvents = 'none';
             
             // Limpiar texto una vez la carta está bajando para que no desaparezca bruscamente
             setTimeout(() => {
@@ -143,11 +145,41 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save("Carta_Para_Maia.pdf");
+            const blob = pdf.output('blob');
+            const file = new File([blob], "Carta_Para_Maia.pdf", { type: "application/pdf" });
+            const url = URL.createObjectURL(blob);
+            
+            // Para iOS: Reemplazamos el botón con un enlace real para evitar problemas de "user gesture" expirado por el async
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "Carta_Para_Maia.pdf";
+            a.className = btnPdf.className;
+            a.innerText = "¡Listo! Guardar PDF";
+            a.id = "btnPdf";
+            
+            a.addEventListener('click', async (ev) => {
+                ev.stopPropagation();
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    ev.preventDefault(); // Prevenir descarga si podemos usar el Share nativo
+                    try {
+                        await navigator.share({ title: 'Carta para Maia', files: [file] });
+                    } catch (shareErr) {
+                        // Fallback si cancela o falla el share
+                        const fallback = document.createElement('a');
+                        fallback.href = url;
+                        fallback.download = "Carta_Para_Maia.pdf";
+                        document.body.appendChild(fallback);
+                        fallback.click();
+                        document.body.removeChild(fallback);
+                    }
+                }
+            });
+
+            btnPdf.parentNode.replaceChild(a, btnPdf);
+
         } catch (err) {
             console.error(err);
-            alert("Error al generar PDF.");
-        } finally {
+            alert("Error al generar PDF: " + err.message);
             btnPdf.innerText = originalText;
             btnPdf.disabled = false;
         }
@@ -213,16 +245,39 @@ document.addEventListener("DOMContentLoaded", () => {
 </package>`);
 
             const blob = await zip.generateAsync({type: "blob", mimeType: "application/epub+zip"});
+            const file = new File([blob], "Carta_Para_Maia.epub", { type: "application/epub+zip" });
             const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
+            
+            // Para iOS: Enlace real
+            const a = document.createElement('a');
             a.href = url;
             a.download = "Carta_Para_Maia.epub";
-            a.click();
-            URL.revokeObjectURL(url);
+            a.className = btnEpub.className;
+            a.innerText = "¡Listo! Guardar EPUB";
+            a.id = "btnEpub";
+            
+            a.addEventListener('click', async (ev) => {
+                ev.stopPropagation();
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    ev.preventDefault();
+                    try {
+                        await navigator.share({ title: 'Carta para Maia', files: [file] });
+                    } catch (shareErr) {
+                        const fallback = document.createElement('a');
+                        fallback.href = url;
+                        fallback.download = "Carta_Para_Maia.epub";
+                        document.body.appendChild(fallback);
+                        fallback.click();
+                        document.body.removeChild(fallback);
+                    }
+                }
+            });
+
+            btnEpub.parentNode.replaceChild(a, btnEpub);
+
         } catch (err) {
             console.error(err);
-            alert("Error al generar EPUB.");
-        } finally {
+            alert("Error al generar EPUB: " + err.message);
             btnEpub.innerText = originalText;
             btnEpub.disabled = false;
         }
