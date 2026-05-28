@@ -270,3 +270,20 @@ body, html {
 @media (max-width: 700px) {
     .moon { width: 80px; height: 80px; top: 10%; right: 10%; }
 }
+
+.download-btns {
+    display: flex; gap: 15px; justify-content: center;
+    margin-top: clamp(30px, 6vw, 50px); margin-bottom: 20px;
+    opacity: 0; pointer-events: none; transition: opacity 1.5s ease;
+}
+.download-btns.visible { opacity: 1; pointer-events: auto; }
+
+.dl-btn {
+    background: transparent; border: 1px solid var(--ink-color);
+    color: var(--ink-color); padding: 8px 16px; border-radius: 20px;
+    font-family: 'Lora', serif; font-size: 14px; cursor: pointer;
+    transition: all 0.3s ease; opacity: 0.8;
+}
+.dl-btn:hover {
+    background: var(--ink-color); color: var(--paper-color); opacity: 1;
+}

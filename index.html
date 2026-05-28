@@ -6,6 +6,9 @@
     <title>Para Maia</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
     <div class="starry-background">
@@ -25,10 +28,15 @@
                 <!-- La Carta (z-index: 2) -> Intercalada perfectamente -->
                 <div class="letter" id="letter">
                     <button class="close-btn" id="closeBtn" aria-label="Cerrar carta">&times;</button>
-                    <div class="letter-content">
+                    <div class="letter-content" id="letterContent">
                         <h1 class="salutation">Maia amada mía,</h1>
                         <div class="message" id="messageText"></div>
                         <p class="signature fade-in-hidden" id="signature">Con todo mi amor, de parte de Raúl.</p>
+                        
+                        <div class="download-btns fade-in-hidden" id="downloadBtns">
+                            <button id="btnPdf" class="dl-btn">Descargar PDF</button>
+                            <button id="btnEpub" class="dl-btn">Descargar EPUB</button>
+                        </div>
                     </div>
                 </div>
 
