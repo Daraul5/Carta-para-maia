@@ -10,8 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnEpub = document.getElementById('btnEpub');
 
     // El mensaje dedicado a MAIA
-    const textToType = `Desde el momento en que entraste a mi vida me he sentido en un mundo tan maravilloso que añoro, con cada fibra de mi ser, pertenecer el resto de mi vida.\n\nAmor mío, te escribo esto para hacerte notar lo mucho que te amo. Que me encantas y fascinas cada parte de mi ser, mi alma, mi cuerpo y mi corazón.\n\nTú eres una chica tan magnífica que de verdad has hecho que mi mundo se vuelva lleno de color. Me encontraba desamparado, perdido y sin rumbo, y tú me devolviste las ganas de vivir y de esforzarme. En ti encontré la pieza más importante a mi maquinaria; contigo encontré la fuerza para esforzarme más allá de mis límites.\n\nEres el amor de mi vida, a quien admiro y amo con todo mi corazón. Te escribo esto para así dejarte en claro lo mucho que te amo, que te pienso y que te siento.\n\nComo había dicho antes, mis días se dividen así: 9 horas soñándote y 15 pensándote. Horas donde soy feliz y me hallo alegre y entusiasmado a cada momento en los que tú y yo estamos juntos.\n\nTe quiero por siempre en mi vida, te necesito por siempre en mi corazón. Tú que has devuelto a mi rostro una sonrisa tan dulce y llena de amor, tú que me haces respirar y latir mi corazón de maneras tan descontroladas, tú que me tienes en tus manos y a tus pies, que eres dueña de mi destino...\n\nTe amo tanto que aun así me quedo corto para describirlo, porque trasciende más de las palabras. Eres mi mundo, mi paz y mi mujer, eres mi todo y sin ti nada tendría sentido.`;
+    const textToType = `Desde que llegaste a mi vida, todo se esclareció. Salvaste a este corazón de una sumisión de tristeza; salvaste a este chico de una forma tan heroica que de verdad quiero hacértelo saber, mi amor, el porqué te admiro tanto. 
 
+Siempre he sido alguien muy reservado, tranquilo y, como has visto, alguien muy sencillo; aficionado a conocer y explorar muchas cosas, pero siempre dentro de mí. Sin embargo, cuando te conocí, temía arruinarlo, pero confié en mí. Mi curiosidad me había hecho poner mi atención en ti. Cada día que pasaba, cada instante de interés y de notoriedad, comenzó fuerte, de una manera que solo yo conocía. 
+
+Sin cuestionármelo, sin preguntarlo, simplemente decidí hablarte. Fue un trance, un sueño comenzar a hacerlo, y fue mucho más hermoso de lo que me imaginaba. Me encontré con un mundo nuevo, un mundo al que quise pertenecer. Tu precaución, pero al mismo tiempo tu consideración por mí, hizo que quisiera desnudar completamente mis intenciones por ti. Lo hice desde un inicio porque no quería que pasara lo que pasara, y que no supieras lo que quería. Un gesto quizás inocente fue bien recibido; una chica que se preguntaba por mí, se interesó también por ese gesto que simplemente le cautivó.
+
+Admitiré, como he dicho, que desde antes quería, desde antes me parecías hermosa. Pero en esos instantes, lo que me cautivó fuiste tú: tu delicadeza, tu forma de ser y de serme sincera, de protegerte a ti. De verdad que me fascinó. Yo bajé toda mi guardia y decidí que tenía que ser ahí. 
+
+Me mostré yo, el Raúl que siempre he sido, un chico al que fascinaste desde el primer momento y que no pudo evitar amarte; un Raúl que, ante todo, tomó valor para sentirlo y decirlo. Un Raúl que veía cómo la chica con la que tanto soñaba, en la que tanto había pensado y notado aun sin habernos cruzado antes, aceptaba felizmente ese sentimiento. 
+
+Me hiciste sentir amado, me hiciste sentir en el lugar donde pertenezco. Me hiciste sentir todo en esta vida por primera vez y, de mi corazón, apartaste cualquier rastro de tristeza o de soledad. Entendí que ese día, una chica tan espectacular, tan noble, tierna y, sobre todo, llena de ilusión y de un amor que correspondía al mío, me acompañaría siempre. 
+
+Ese día toda mi vida tuvo sentido. Ese día me salvaste, porque me demostraste valentía, una decisión y determinación que me hizo querer pertenecerte desde ese instante.
+
+Te amo y te amaré toda mi vida, Maia, mi amor.`;
     let typingTimeout;
     let isTyping = false;
     let isOpened = false;
@@ -45,7 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 i++;
                 // Pausas más largas en comas y puntos para darle naturalidad
-                const speed = (char === ',' || char === '.') ? 300 : (Math.random() * 20 + 30);
+                // Escritura rápida (pausa de 100ms en puntuación y de 5ms a 15ms en letras)
+                const speed = (char === ',' || char === '.') ? 50 : (Math.random() * 10 + 5);
                 typingTimeout = setTimeout(addNextChar, speed);
             } else {
                 isTyping = false;
@@ -59,8 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         
-        // Empieza a escribir 2.4s después del clic (tiempo suficiente para que la carta suba)
-        typingTimeout = setTimeout(addNextChar, 2400);
+        // Empieza a escribir 1.5s después del clic (tiempo suficiente para que la carta suba)
+        typingTimeout = setTimeout(addNextChar, 1500);
     }
 
     waxSeal.addEventListener('click', () => {
